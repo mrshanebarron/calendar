@@ -1,12 +1,1 @@
-{
-    "name": "@laraveldesign/calendar",
-    "version": "1.0.0",
-    "description": "Calendar component for Laravel",
-    "main": "resources/js/vue/index.js",
-    "module": "resources/js/vue/index.js",
-    "files": ["resources/js/vue"],
-    "keywords": ["laravel", "calendar", "events", "schedule", "livewire", "vue"],
-    "author": "Shane Barron <mrshanebarron@gmail.com>",
-    "license": "MIT",
-    "peerDependencies": {"vue": "^3.0.0"}
-}
+{"name": "@mrshanebarron/calendar", "version": "1.0.0", "main": "resources/js/index.js", "peerDependencies": {"vue": "^3.0.0"}}

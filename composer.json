@@ -1,30 +1,12 @@
 {
     "name": "mrshanebarron/calendar",
-    "description": "Calendar component for Laravel",
-    "keywords": ["laravel", "calendar", "events", "schedule", "livewire", "vue"],
+    "description": "Calendar component for Laravel - supports Livewire and Vue",
+    "keywords": ["laravel", "livewire", "vue", "calendar", "date"],
     "license": "MIT",
     "authors": [{"name": "Shane Barron", "email": "mrshanebarron@gmail.com"}],
-    "require": {
-        "php": "^8.1",
-        "illuminate/support": "^10.0|^11.0|^12.0",
-        "livewire/livewire": "^3.0"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^8.0|^9.0",
-        "pestphp/pest": "^2.0"
-    },
-    "autoload": {
-        "psr-4": {"LaravelDesign\\calendar\\": "src/"}
-    },
-    "autoload-dev": {
-        "psr-4": {"LaravelDesign\\calendar\\Tests\\": "tests/"}
-    },
-    "extra": {
-        "laravel": {
-            "providers": ["LaravelDesign\\calendar\\calendarServiceProvider"]
-        }
-    },
-    "config": {"sort-packages": true},
+    "require": {"php": "^8.1", "illuminate/support": "^10.0|^11.0|^12.0"},
+    "autoload": {"psr-4": {"MrShaneBarron\\Calendar\\": "src/"}},
+    "extra": {"laravel": {"providers": ["MrShaneBarron\\Calendar\\CalendarServiceProvider"]}},
     "minimum-stability": "stable",
     "prefer-stable": true
 }

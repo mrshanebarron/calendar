@@ -1,37 +1,16 @@
 <?php
 
-namespace MrShaneBarron\calendar;
+namespace MrShaneBarron\Calendar;
 
 use Illuminate\Support\ServiceProvider;
-use MrShaneBarron\calendar\Livewire\calendar;
-use MrShaneBarron\calendar\View\Components\calendar as Bladecalendar;
-use Livewire\Livewire;
 
-class calendarServiceProvider extends ServiceProvider
+class CalendarServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../config/ld-calendar.php', 'ld-calendar');
-    }
-
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ld-calendar');
-
-        Livewire::component('ld-calendar', calendar::class);
-
-        $this->loadViewComponentsAs('ld', [
-            Bladecalendar::class,
-        ]);
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/ld-calendar.php' => config_path('ld-calendar.php'),
-            ], 'ld-calendar-config');
-
-            $this->publishes([
-                __DIR__ . '/../resources/views' => resource_path('views/vendor/ld-calendar'),
-            ], 'ld-calendar-views');
+        if (class_exists(\Livewire\Livewire::class)) {
+            \Livewire\Livewire::component('ld-calendar', Livewire\Calendar::class);
         }
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ld-calendar');
     }
 }

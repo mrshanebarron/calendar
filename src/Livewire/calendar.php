@@ -7,34 +7,30 @@ use Carbon\Carbon;
 
 class Calendar extends Component
 {
-    public string $currentMonth;
-    public int $currentYear;
-    public array $events = [];
+    public int $year;
+    public int $month;
     public ?string $selectedDate = null;
+    public array $events = [];
 
-    public function mount(
-        ?string $month = null,
-        ?int $year = null,
-        array $events = []
-    ): void {
-        $now = Carbon::now();
-        $this->currentMonth = $month ?? $now->format('m');
-        $this->currentYear = $year ?? $now->year;
+    public function mount(?int $year = null, ?int $month = null, array $events = []): void
+    {
+        $this->year = $year ?? now()->year;
+        $this->month = $month ?? now()->month;
         $this->events = $events;
     }
 
     public function previousMonth(): void
     {
-        $date = Carbon::createFromDate($this->currentYear, $this->currentMonth, 1)->subMonth();
-        $this->currentMonth = $date->format('m');
-        $this->currentYear = $date->year;
+        $date = Carbon::create($this->year, $this->month, 1)->subMonth();
+        $this->year = $date->year;
+        $this->month = $date->month;
     }
 
     public function nextMonth(): void
     {
-        $date = Carbon::createFromDate($this->currentYear, $this->currentMonth, 1)->addMonth();
-        $this->currentMonth = $date->format('m');
-        $this->currentYear = $date->year;
+        $date = Carbon::create($this->year, $this->month, 1)->addMonth();
+        $this->year = $date->year;
+        $this->month = $date->month;
     }
 
     public function selectDate(string $date): void
@@ -45,30 +41,23 @@ class Calendar extends Component
 
     public function getDays(): array
     {
-        $start = Carbon::createFromDate($this->currentYear, $this->currentMonth, 1);
+        $start = Carbon::create($this->year, $this->month, 1);
         $end = $start->copy()->endOfMonth();
         $days = [];
 
-        // Add padding for days before month starts
-        for ($i = 0; $i < $start->dayOfWeek; $i++) {
-            $days[] = null;
-        }
+        // Add empty days for alignment
+        for ($i = 0; $i < $start->dayOfWeek; $i++) $days[] = null;
 
         // Add days of month
-        for ($day = 1; $day <= $end->day; $day++) {
-            $days[] = Carbon::createFromDate($this->currentYear, $this->currentMonth, $day);
+        for ($d = 1; $d <= $end->day; $d++) {
+            $days[] = Carbon::create($this->year, $this->month, $d)->format('Y-m-d');
         }
 
         return $days;
     }
 
-    public function getEventsForDate(string $date): array
-    {
-        return array_filter($this->events, fn($event) => ($event['date'] ?? '') === $date);
-    }
-
     public function render()
     {
-        return view('ld-calendar::livewire.calendar');
+        return view('ld-calendar::livewire.calendar', ['days' => $this->getDays()]);
     }
 }
