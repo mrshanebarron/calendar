@@ -18,7 +18,7 @@
 import { ref, computed } from 'vue';
 
 export default {
-  name: 'LdCalendar',
+  name: 'SbCalendar',
   props: { modelValue: String },
   emits: ['update:modelValue'],
   setup(props, { emit }) {

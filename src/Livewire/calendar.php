@@ -58,6 +58,6 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('ld-calendar::livewire.calendar', ['days' => $this->getDays()]);
+        return view('sb-calendar::livewire.calendar', ['days' => $this->getDays()]);
     }
 }
